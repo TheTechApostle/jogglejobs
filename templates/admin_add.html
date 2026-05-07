@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Job — Joggle Jobs Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body style="padding-top:0;background:#f8f5ff;">
+
+<!-- ── SIDEBAR ── -->
+<aside class="admin-sidebar d-none d-lg-flex flex-column">
+  <div class="admin-logo">
+    <i class="fa-solid fa-briefcase me-2" style="color:var(--purple-300);"></i>
+    Joggle<span style="color:var(--purple-300);">Jobs</span>
+    <div style="font-size:.65rem;font-weight:400;color:rgba(255,255,255,.35);margin-top:.2rem;">Admin Panel</div>
+  </div>
+  <a href="/admin" class="admin-nav-link"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+  <a href="/admin/add" class="admin-nav-link active"><i class="fa-solid fa-plus-circle"></i> Add Job</a>
+  <a href="/jobs" class="admin-nav-link" target="_blank"><i class="fa-solid fa-eye"></i> View Site</a>
+  <div style="margin-top:auto;padding-top:1rem;border-top:1px solid rgba(255,255,255,.06);">
+    <a href="/admin/logout" class="admin-nav-link" style="color:rgba(239,68,68,.7);">
+      <i class="fa-solid fa-right-from-bracket"></i> Logout
+    </a>
+  </div>
+</aside>
+
+<main class="admin-content">
+  <div class="mb-4">
+    <a href="/admin" style="color:var(--purple-600);font-size:.85rem;text-decoration:none;">
+      <i class="fa-solid fa-arrow-left me-1"></i>Back to Dashboard
+    </a>
+    <h4 style="font-family:'Syne',sans-serif;font-weight:800;margin:.5rem 0 .15rem;">Add New Job</h4>
+    <p class="text-muted mb-0" style="font-size:.85rem;">Manually post a new job listing to the board</p>
+  </div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:2rem;max-width:800px;">
+    <form method="POST" action="/admin/add">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label fw-semibold" style="font-size:.85rem;">Job Title <span style="color:var(--purple-500)">*</span></label>
+          <input type="text" name="title" class="form-control" placeholder="e.g. Senior Software Engineer" required/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-semibold" style="font-size:.85rem;">Company Name <span style="color:var(--purple-500)">*</span></label>
+          <input type="text" name="company" class="form-control" placeholder="e.g. Flutterwave" required/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-semibold" style="font-size:.85rem;">Location <span style="color:var(--purple-500)">*</span></label>
+          <input type="text" name="location" class="form-control" placeholder="e.g. Lagos, Nigeria" required/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-semibold" style="font-size:.85rem;">Salary / Compensation</label>
+          <input type="text" name="salary" class="form-control" placeholder="e.g. ₦400,000 – ₦600,000/mo"/>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label fw-semibold" style="font-size:.85rem;">Job Type <span style="color:var(--purple-500)">*</span></label>
+          <select name="type" class="form-select" required>
+            <option value="Full-time">Full-time</option>
+            <option value="Remote">Remote</option>
+            <option value="Contract">Contract</option>
+            <option value="Part-time">Part-time</option>
+            <option value="Internship">Internship</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label fw-semibold" style="font-size:.85rem;">Region <span style="color:var(--purple-500)">*</span></label>
+          <select name="region" class="form-select" required>
+            <option value="nigeria">Nigeria</option>
+            <option value="international">International</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label fw-semibold" style="font-size:.85rem;">Category <span style="color:var(--purple-500)">*</span></label>
+          <select name="category" class="form-select" required>
+            {% for c in ['Technology','Finance','Marketing','Design','Data','Operations','Human Resources','Product','Sales','Healthcare','Engineering','Legal','Education','Media'] %}
+            <option value="{{ c }}">{{ c }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-12">
+          <label class="form-label fw-semibold" style="font-size:.85rem;">Job Description <span style="color:var(--purple-500)">*</span></label>
+          <textarea name="description" class="form-control" rows="5" placeholder="Describe the role, responsibilities, and what makes it exciting…" required></textarea>
+        </div>
+        <div class="col-12">
+          <label class="form-label fw-semibold" style="font-size:.85rem;">Requirements / Qualifications</label>
+          <textarea name="requirements" class="form-control" rows="3" placeholder="e.g. 3+ years Python, REST APIs, PostgreSQL…"></textarea>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-semibold" style="font-size:.85rem;">Company Logo URL</label>
+          <input type="url" name="logo" class="form-control" placeholder="https://…"/>
+          <div class="form-text">Optional — direct image URL. Leave blank for default icon.</div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-semibold" style="font-size:.85rem;">
+            Apply URL <span style="color:var(--purple-500);">*</span>
+            <i class="fa-solid fa-circle-info ms-1 text-muted" title="Direct link to the company's application page"></i>
+          </label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <input type="url" name="apply_url" class="form-control" placeholder="https://company.com/careers/job-id" required/>
+          </div>
+          <div class="form-text">Applicants will be sent directly to this URL when they click Apply.</div>
+        </div>
+        <div class="col-12">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="featured" id="featuredCheck" style="border-color:var(--purple-400);">
+            <label class="form-check-label fw-semibold" for="featuredCheck" style="font-size:.9rem;">
+              <i class="fa-solid fa-star me-1" style="color:var(--gold);"></i>Mark as Featured Listing
+            </label>
+          </div>
+        </div>
+        <div class="col-12 mt-2">
+          <button type="submit" class="btn-purple btn btn-lg px-5">
+            <i class="fa-solid fa-plus me-2"></i>Publish Job
+          </button>
+          <a href="/admin" class="btn btn-outline-secondary btn-lg ms-2 px-4">Cancel</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block title %}About Us — Joggle Jobs{% endblock %}
+
+{% block content %}
+<!-- ── HERO ── -->
+<div class="about-hero">
+  <div class="container" style="position:relative;z-index:2;">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <p style="color:var(--purple-300);font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.6rem;">
+          <i class="fa-solid fa-circle-info me-1"></i> Our Story
+        </p>
+        <h1 style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,5vw,3.2rem);color:#fff;line-height:1.1;margin-bottom:1.25rem;">
+          Connecting African<br>Talent to <span style="color:var(--purple-300);">Opportunity</span>
+        </h1>
+        <p style="color:rgba(255,255,255,.65);font-size:1.05rem;line-height:1.8;">
+          Founded in the heart of Lagos, Joggle Jobs was born from a simple but powerful belief: every Nigerian professional deserves access to the best opportunities — whether down the street or across the globe.
+        </p>
+        <div class="d-flex gap-3 mt-4">
+          <a href="/jobs" class="btn-purple btn px-4"><i class="fa-solid fa-briefcase me-2"></i>Browse Jobs</a>
+          <a href="/contact" class="btn btn-outline-light rounded-pill px-4">Contact Us</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;height:360px;">
+          <div style="border-radius:16px;overflow:hidden;">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=300&h=400&fit=crop" alt="Team" style="width:100%;height:100%;object-fit:cover;"/>
+          </div>
+          <div style="display:grid;grid-template-rows:1fr 1fr;gap:1rem;">
+            <div style="border-radius:16px;overflow:hidden;">
+              <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=300&h=180&fit=crop" alt="Office" style="width:100%;height:100%;object-fit:cover;"/>
+            </div>
+            <div style="border-radius:16px;overflow:hidden;">
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=180&fit=crop" alt="Work" style="width:100%;height:100%;object-fit:cover;"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MISSION ── -->
+<section class="section">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-5">
+        <div style="border-radius:20px;overflow:hidden;aspect-ratio:4/3;">
+          <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&h=450&fit=crop" alt="Mission" style="width:100%;height:100%;object-fit:cover;"/>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <p class="section-label">Our Mission</p>
+        <h2 class="section-title">Democratising Career Growth<br>Across Africa</h2>
+        <p style="color:var(--text-mid);line-height:1.8;margin-bottom:1.25rem;">
+          Joggle Jobs was founded in 2023 from Ogba, Lagos with a mission to close the information gap in Nigeria's job market. We noticed that talented professionals were missing out on top opportunities simply because they didn't know where to look.
+        </p>
+        <p style="color:var(--text-mid);line-height:1.8;margin-bottom:1.5rem;">
+          Today, we aggregate listings from Nigeria's leading employers — including tech unicorns, banks, multinationals, and startups — alongside international companies actively seeking African talent. Our platform is fast, mobile-first, and always up to date.
+        </p>
+        <div class="row g-3">
+          {% for num, lbl in [('2023','Founded in Lagos'),('300+','Partner Companies'),('12+','Job Categories'),('24hr','Listing Freshness')] %}
+          <div class="col-6">
+            <div style="background:var(--purple-100);border-radius:12px;padding:1rem 1.25rem;">
+              <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;color:var(--purple-700);">{{ num }}</div>
+              <div style="font-size:.8rem;color:var(--text-light);">{{ lbl }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── VALUES ── -->
+<section class="section section-soft">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="section-label">What We Stand For</p>
+      <h2 class="section-title">Our Core Values</h2>
+    </div>
+    <div class="row g-4">
+      {% set vals = [
+        ('fa-solid fa-handshake','Integrity','Every listing on our platform is verified. We never mislead job seekers with ghost postings or outdated roles.'),
+        ('fa-solid fa-bolt','Speed','Jobs are refreshed daily. We know that timing matters in a competitive job market.'),
+        ('fa-solid fa-users','Inclusivity','We serve every Nigerian — from fresh graduates to C-suite executives — across every sector.'),
+        ('fa-solid fa-globe','Global Reach','We bridge the gap between African talent and international opportunity without barriers.'),
+        ('fa-solid fa-shield-halved','Trust','Our relationships with employers are built on mutual respect and transparent communication.'),
+        ('fa-solid fa-chart-line','Growth','We are committed to continuously improving our platform based on user feedback and market needs.'),
+      ] %}
+      {% for icon, title, desc in vals %}
+      <div class="col-md-6 col-lg-4">
+        <div class="value-card">
+          <div class="value-icon"><i class="{{ icon }}"></i></div>
+          <h5 style="font-family:'Syne',sans-serif;font-weight:700;margin-bottom:.6rem;">{{ title }}</h5>
+          <p style="color:var(--text-light);font-size:.9rem;line-height:1.7;margin:0;">{{ desc }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ── TEAM ── -->
+<section class="section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="section-label">The People Behind Joggle Jobs</p>
+      <h2 class="section-title">Meet the Team</h2>
+    </div>
+    <div class="row g-4 justify-content-center">
+      {% set team = [
+        ('Adebayo Okonkwo','Founder & CEO','https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=300&h=300&fit=crop'),
+        ('Ngozi Eze','Head of Operations','https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop'),
+        ('Emeka Nwosu','Lead Engineer','https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop'),
+        ('Aisha Bello','Partnerships Manager','https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=300&fit=crop'),
+      ] %}
+      {% for name, role, img in team %}
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="team-card">
+          <div class="team-img" style="aspect-ratio:1;">
+            <img src="{{ img }}" alt="{{ name }}"/>
+          </div>
+          <div class="team-info">
+            <div class="team-name">{{ name }}</div>
+            <div class="team-role">{{ role }}</div>
+            <div class="d-flex gap-2 mt-2">
+              <a href="#" style="color:var(--purple-500);font-size:.85rem;"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="#" style="color:var(--purple-500);font-size:.85rem;"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<div style="background:linear-gradient(135deg,var(--purple-900),var(--purple-700));padding:4rem 0;text-align:center;">
+  <div class="container">
+    <h2 style="font-family:'Syne',sans-serif;font-weight:800;color:#fff;margin-bottom:1rem;">Ready to Join Our Community?</h2>
+    <p style="color:rgba(255,255,255,.65);margin-bottom:2rem;">Whether you're a job seeker or an employer, Joggle Jobs is your partner in growth.</p>
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+      <a href="/jobs" class="btn btn-light btn-lg rounded-pill px-5 fw-bold" style="color:var(--purple-700);">
+        <i class="fa-solid fa-search me-2"></i>Find a Job
+      </a>
+      <a href="/contact" class="btn btn-outline-light btn-lg rounded-pill px-5">
+        <i class="fa-solid fa-envelope me-2"></i>Post a Job
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

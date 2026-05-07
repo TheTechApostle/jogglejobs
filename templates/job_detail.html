@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block title %}{{ job.title }} at {{ job.company }} — Joggle Jobs{% endblock %}
+
+{% block content %}
+<!-- ── HEADER ── -->
+<div class="job-detail-header">
+  <div class="container" style="position:relative;z-index:2;">
+    <a href="/jobs" style="color:var(--purple-300);font-size:.85rem;text-decoration:none;">
+      <i class="fa-solid fa-arrow-left me-1"></i>Back to Jobs
+    </a>
+    <div class="d-flex align-items-start gap-3 mt-3 flex-wrap">
+      <div class="detail-logo">
+        {% if job.logo %}<img src="{{ job.logo }}" alt="{{ job.company }}"/>{% else %}<i class="fa-solid fa-building"></i>{% endif %}
+      </div>
+      <div>
+        <h1 class="detail-title">{{ job.title }}</h1>
+        <p class="detail-company mb-2">{{ job.company }}</p>
+        <div class="d-flex flex-wrap gap-2">
+          <span class="meta-tag" style="background:rgba(255,255,255,.12);color:#fff;">
+            <i class="fa-solid fa-location-dot"></i> {{ job.location }}
+          </span>
+          <span class="meta-tag" style="background:rgba(255,255,255,.12);color:#fff;">
+            <i class="fa-solid fa-clock"></i> {{ job.type }}
+          </span>
+          <span class="meta-tag" style="background:rgba(255,255,255,.12);color:#fff;">
+            <i class="fa-solid fa-tag"></i> {{ job.category }}
+          </span>
+          {% if job.featured %}
+          <span class="meta-tag" style="background:var(--gold);color:#000;">
+            <i class="fa-solid fa-star"></i> Featured
+          </span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── BODY ── -->
+<div class="container" style="padding-top:2.5rem;padding-bottom:4rem;">
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="job-body">
+        <h5><i class="fa-solid fa-circle-info me-2" style="color:var(--purple-500);"></i>About the Role</h5>
+        <p>{{ job.description }}</p>
+
+        {% if job.requirements %}
+        <h5><i class="fa-solid fa-list-check me-2" style="color:var(--purple-500);"></i>Requirements</h5>
+        <p>{{ job.requirements }}</p>
+        {% endif %}
+
+        <h5><i class="fa-solid fa-building me-2" style="color:var(--purple-500);"></i>Company</h5>
+        <p>{{ job.company }} is an industry-leading organisation committed to excellence, innovation, and inclusive growth. They offer a dynamic work environment where talent is nurtured and rewarded.</p>
+
+        <div class="mt-4 pt-3" style="border-top:1px dashed var(--border);">
+          <div class="d-flex align-items-center gap-2 text-muted" style="font-size:.82rem;">
+            <i class="fa-solid fa-link"></i>
+            <span>Source: {{ job.source }}</span>
+            <span class="ms-auto" data-posted="{{ job.posted }}">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Sidebar ── -->
+    <div class="col-lg-4">
+      <!-- Apply Card -->
+      <div style="background:linear-gradient(135deg,var(--purple-700),var(--purple-500));border-radius:var(--radius);padding:1.75rem;color:#fff;margin-bottom:1rem;">
+        <h5 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:.5rem;">Apply for This Role</h5>
+        <p style="font-size:.8rem;color:rgba(255,255,255,.6);margin-bottom:1rem;">
+          <i class="fa-solid fa-circle-info me-1"></i>You'll be taken to {{ job.company }}'s official careers page.
+        </p>
+        <div style="font-size:1.3rem;font-family:'Syne',sans-serif;font-weight:800;margin-bottom:1rem;">{{ job.salary }}</div>
+        {% if job.apply_url %}
+        <a href="{{ job.apply_url }}" target="_blank" rel="noopener noreferrer"
+           class="btn btn-light w-100 rounded-pill fw-bold mb-2" style="color:var(--purple-700);">
+          <i class="fa-solid fa-arrow-up-right-from-square me-2"></i>Apply on {{ job.company }} Site
+        </a>
+        {% else %}
+        <a href="mailto:hello@jogglejobs.ng?subject=Application: {{ job.title }} at {{ job.company }}"
+           class="btn btn-light w-100 rounded-pill fw-bold mb-2" style="color:var(--purple-700);">
+          <i class="fa-solid fa-paper-plane me-2"></i>Apply via Email
+        </a>
+        {% endif %}
+        <a href="https://wa.me/2348139528809?text=I'm interested in the {{ job.title }} role at {{ job.company }}"
+           class="btn btn-outline-light w-100 rounded-pill" style="font-size:.88rem;" target="_blank">
+          <i class="fa-brands fa-whatsapp me-2"></i>Enquire via WhatsApp
+        </a>
+        {% if job.apply_url %}
+        <div style="text-align:center;margin-top:.85rem;">
+          <a href="{{ job.apply_url }}" target="_blank" rel="noopener noreferrer"
+             style="font-size:.72rem;color:rgba(255,255,255,.45);word-break:break-all;">
+            <i class="fa-solid fa-link me-1"></i>{{ job.apply_url }}
+          </a>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Details Card -->
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1rem;">
+        <h6 style="font-family:'Syne',sans-serif;font-weight:700;margin-bottom:1rem;">Job Details</h6>
+        {% set details = [
+          ('fa-solid fa-briefcase', 'Job Type', job.type),
+          ('fa-solid fa-globe', 'Region', 'Nigeria' if job.region=='nigeria' else 'International'),
+          ('fa-solid fa-folder-open', 'Category', job.category),
+          ('fa-solid fa-money-bill-wave', 'Salary', job.salary),
+        ] %}
+        {% for icon, lbl, val in details %}
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <div style="width:36px;height:36px;background:var(--purple-100);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--purple-600);flex-shrink:0;">
+            <i class="{{ icon }}" style="font-size:.85rem;"></i>
+          </div>
+          <div>
+            <div style="font-size:.7rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.06em;">{{ lbl }}</div>
+            <div style="font-size:.9rem;font-weight:600;color:var(--text-dark);">{{ val }}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Share -->
+      <div style="background:var(--purple-100);border-radius:var(--radius);padding:1.25rem;">
+        <p style="font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;margin-bottom:.75rem;">Share this Job</p>
+        <div class="d-flex gap-2">
+          <a href="https://twitter.com/intent/tweet?text={{ job.title }}%20at%20{{ job.company }}%20via%20Joggle%20Jobs" target="_blank"
+             class="btn btn-sm rounded-pill" style="background:var(--purple-600);color:#fff;"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.url }}" target="_blank"
+             class="btn btn-sm rounded-pill" style="background:#0a66c2;color:#fff;"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://wa.me/?text={{ job.title }}%20at%20{{ job.company }}%20-%20{{ request.url }}" target="_blank"
+             class="btn btn-sm rounded-pill" style="background:#25D366;color:#fff;"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Jobs -->
+  {% if related %}
+  <div class="mt-5">
+    <h4 style="font-family:'Syne',sans-serif;font-weight:700;margin-bottom:1.5rem;">Related Jobs</h4>
+    <div class="row g-4">
+      {% for rj in related %}
+      <div class="col-md-4">
+        <div class="job-card">
+          <div class="job-card-header">
+            <div class="job-logo">
+              {% if rj.logo %}<img src="{{ rj.logo }}" alt="{{ rj.company }}"/>{% else %}<i class="fa-solid fa-building"></i>{% endif %}
+            </div>
+            <div>
+              <div class="job-company">{{ rj.company }}</div>
+              <div class="job-title">{{ rj.title }}</div>
+            </div>
+          </div>
+          <div class="job-salary"><i class="fa-solid fa-money-bill-wave me-1"></i>{{ rj.salary }}</div>
+          <a href="/job/{{ rj.id }}" class="btn-job mt-2">View Job <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

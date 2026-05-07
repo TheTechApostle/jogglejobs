@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+{% block title %}Joggle Jobs — Nigeria's Premier Job Board{% endblock %}
+
+{% block content %}
+<!-- ── HERO ──────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="container">
+    <div class="row align-items-center gy-5">
+      <div class="col-lg-7 hero-content">
+        <div class="hero-eyebrow fade-up">
+          <i class="fa-solid fa-bolt"></i> Live Jobs — Updated Daily
+        </div>
+        <h1 class="hero-title fade-up fade-up-1">
+          Find Your <span>Dream Job</span><br>In Nigeria &amp; Beyond
+        </h1>
+        <p class="hero-sub fade-up fade-up-2">
+          Joggle Jobs aggregates thousands of verified roles from Nigeria's top employers and leading global companies — all in one powerful, searchable platform.
+        </p>
+
+        <!-- Search -->
+        <form class="search-box fade-up fade-up-3" action="/jobs" method="GET">
+          <i class="fa-solid fa-magnifying-glass" style="color:rgba(255,255,255,.4)"></i>
+          <input type="text" name="q" placeholder="Job title, company, or keyword…"/>
+          <select name="region">
+            <option value="all">All Regions</option>
+            <option value="nigeria">Nigeria</option>
+            <option value="international">International</option>
+          </select>
+          <button type="submit" class="btn-search">
+            <i class="fa-solid fa-search me-1"></i> Search Jobs
+          </button>
+        </form>
+
+        <div class="hero-stats fade-up fade-up-4">
+          <div class="hero-stat">
+            <div class="num" data-target="{{ stats.total }}">{{ stats.total }}</div>
+            <div class="lbl">Live Jobs</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num" data-target="{{ stats.nigeria }}">{{ stats.nigeria }}</div>
+            <div class="lbl">Nigeria Roles</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num" data-target="{{ stats.international }}">{{ stats.international }}</div>
+            <div class="lbl">International</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num" data-target="{{ stats.remote }}">{{ stats.remote }}</div>
+            <div class="lbl">Remote Jobs</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-5 hero-visual">
+        <div class="hero-img-main">
+          <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&h=750&fit=crop" alt="Professionals at work"/>
+        </div>
+        <div class="hero-float-card card-1">
+          <div class="float-icon green"><i class="fa-solid fa-circle-check"></i></div>
+          <div class="float-text">
+            <div class="val">New Hire!</div>
+            <div class="lbl">Software Engineer at Flutterwave</div>
+          </div>
+        </div>
+        <div class="hero-float-card card-2">
+          <div class="float-icon purple"><i class="fa-solid fa-briefcase"></i></div>
+          <div class="float-text">
+            <div class="val">300+ Companies</div>
+            <div class="lbl">Actively Hiring</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS BAND ─────────────────────────────────────── -->
+<div class="stats-band">
+  <div class="container">
+    <div class="row g-4 text-center">
+      <div class="col-6 col-md-3 stat-item">
+        <div class="stat-num"><span data-target="{{ stats.total }}">{{ stats.total }}</span>+</div>
+        <div class="stat-label">Active Listings</div>
+      </div>
+      <div class="col-6 col-md-3 stat-item">
+        <div class="stat-num"><span data-target="300">300</span>+</div>
+        <div class="stat-label">Partner Companies</div>
+      </div>
+      <div class="col-6 col-md-3 stat-item">
+        <div class="stat-num"><span data-target="12">12</span>+</div>
+        <div class="stat-label">Industry Categories</div>
+      </div>
+      <div class="col-6 col-md-3 stat-item">
+        <div class="stat-num"><span data-target="{{ stats.remote }}">{{ stats.remote }}</span>+</div>
+        <div class="stat-label">Remote Opportunities</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── BROWSE BY CATEGORY ─────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-lg-8">
+        <p class="section-label">Explore</p>
+        <h2 class="section-title">Browse by Category</h2>
+        <p class="section-sub">From tech and finance to creative and operations — discover roles across every sector.</p>
+      </div>
+    </div>
+    <div class="d-flex flex-wrap gap-3 justify-content-center">
+      {% set categories = [
+        ('Technology','fa-solid fa-laptop-code','technology'),
+        ('Finance','fa-solid fa-chart-line','finance'),
+        ('Marketing','fa-solid fa-bullhorn','marketing'),
+        ('Design','fa-solid fa-pen-ruler','design'),
+        ('Data','fa-solid fa-database','data'),
+        ('Operations','fa-solid fa-gears','operations'),
+        ('Human Resources','fa-solid fa-users','human+resources'),
+        ('Product','fa-solid fa-box-open','product'),
+        ('Sales','fa-solid fa-handshake','sales'),
+        ('Healthcare','fa-solid fa-stethoscope','healthcare'),
+      ] %}
+      {% for name, icon, slug in categories %}
+      <a href="/jobs?category={{ name }}" class="cat-pill">
+        <div class="cat-icon"><i class="{{ icon }}"></i></div>
+        <span>{{ name }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURED JOBS ───────────────────────────────────── -->
+<section class="section section-soft">
+  <div class="container">
+    <div class="row align-items-center mb-5">
+      <div class="col">
+        <p class="section-label">Hand-picked</p>
+        <h2 class="section-title">Featured Opportunities</h2>
+      </div>
+      <div class="col-auto">
+        <a href="/jobs" class="btn-outline-purple btn">View All Jobs <i class="fa-solid fa-arrow-right ms-1"></i></a>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      {% for job in featured %}
+      <div class="col-md-6 col-lg-4">
+        <div class="job-card featured-card">
+          <span class="featured-badge"><i class="fa-solid fa-star me-1"></i>Featured</span>
+          <div class="job-card-header">
+            <div class="job-logo">
+              {% if job.logo %}<img src="{{ job.logo }}" alt="{{ job.company }}"/>{% else %}<i class="fa-solid fa-building"></i>{% endif %}
+            </div>
+            <div>
+              <div class="job-company">{{ job.company }}</div>
+              <div class="job-title">{{ job.title }}</div>
+            </div>
+          </div>
+          <div class="job-meta">
+            <span class="meta-tag"><i class="fa-solid fa-location-dot"></i> {{ job.location }}</span>
+            <span class="meta-tag {% if job.type=='Remote' %}remote{% elif job.type=='Full-time' %}fulltime{% else %}contract{% endif %}">
+              <i class="fa-solid fa-{% if job.type=='Remote' %}wifi{% else %}clock{% endif %}"></i> {{ job.type }}
+            </span>
+            {% if job.region=='international' %}
+            <span class="meta-tag intl"><i class="fa-solid fa-globe"></i> International</span>
+            {% endif %}
+          </div>
+          <p class="text-muted" style="font-size:.85rem;line-height:1.6">{{ job.description[:120] }}…</p>
+          <div class="job-salary">
+            <i class="fa-solid fa-money-bill-wave me-1"></i>{{ job.salary }}
+            <span class="job-time float-end" data-posted="{{ job.posted }}">—</span>
+          </div>
+          <a href="/job/{{ job.id }}" class="btn-job">View Job <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="/jobs" class="btn-purple btn btn-lg px-5">
+        <i class="fa-solid fa-briefcase me-2"></i>Browse All Jobs
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── PHOTO SECTION ──────────────────────────────────── -->
+<section class="section section-dark">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5">
+        <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:220px 220px;gap:1rem;">
+          <div class="photo-tile" style="grid-row:span 2;">
+            <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=500&fit=crop" alt="Team collaboration" style="width:100%;height:100%;object-fit:cover;border-radius:16px;"/>
+          </div>
+          <div class="photo-tile">
+            <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=300&h=200&fit=crop" alt="Office" style="width:100%;height:100%;object-fit:cover;border-radius:16px;"/>
+          </div>
+          <div class="photo-tile">
+            <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=300&h=200&fit=crop" alt="Tech work" style="width:100%;height:100%;object-fit:cover;border-radius:16px;"/>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <p class="section-label" style="color:var(--purple-300)">Why Joggle Jobs</p>
+        <h2 class="section-title white">Built for African<br>Professionals</h2>
+        <p style="color:rgba(255,255,255,.6);line-height:1.8;margin-bottom:2rem;">
+          We understand the unique career landscape of Africa. Our platform bridges the gap between local talent and both Nigerian employers and global companies seeking African professionals.
+        </p>
+        <div class="row g-3">
+          {% set features = [
+            ('fa-solid fa-bolt','Real-time Listings','Jobs posted within 24 hours — always fresh, always relevant.'),
+            ('fa-solid fa-globe','Nigeria + World','From Lagos to London, find roles that match your ambition.'),
+            ('fa-solid fa-shield-halved','Verified Companies','Every listing is reviewed for authenticity and professionalism.'),
+            ('fa-solid fa-mobile-screen','Mobile-First','Apply from anywhere — optimised for every device.'),
+          ] %}
+          {% for icon, title, desc in features %}
+          <div class="col-md-6">
+            <div style="display:flex;gap:1rem;align-items:flex-start;">
+              <div style="width:40px;height:40px;background:rgba(168,85,247,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--purple-300);flex-shrink:0;">
+                <i class="{{ icon }}"></i>
+              </div>
+              <div>
+                <div style="font-family:'Syne',sans-serif;font-weight:700;color:#fff;font-size:.95rem;">{{ title }}</div>
+                <div style="font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.6;margin-top:.2rem;">{{ desc }}</div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="mt-4">
+          <a href="/about" class="btn-purple btn me-3"><i class="fa-solid fa-circle-info me-2"></i>Learn More</a>
+          <a href="/contact" class="btn btn-outline-light rounded-pill px-4"><i class="fa-solid fa-phone me-2"></i>Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── NIGERIA FOCUS ───────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-lg-8">
+        <p class="section-label">Nigeria Focus</p>
+        <h2 class="section-title">Explore Cities Across Nigeria</h2>
+        <p class="section-sub">Opportunities in every state — from the tech hubs of Lagos to the government sector in Abuja and beyond.</p>
+      </div>
+    </div>
+    <div class="row g-3">
+      {% set cities = [
+        ('Lagos','fa-city','Tech, Finance, Marketing','https://images.unsplash.com/photo-1567547981693-e9fa45a17ded?w=400&h=250&fit=crop'),
+        ('Abuja','fa-landmark','Government, NGO, Consulting','https://images.unsplash.com/photo-1605640840605-14ac1855827b?w=400&h=250&fit=crop'),
+        ('Port Harcourt','fa-industry','Oil & Gas, Engineering','https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=250&fit=crop'),
+        ('Remote Nigeria','fa-wifi','All Sectors — Work Anywhere','https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400&h=250&fit=crop'),
+      ] %}
+      {% for city, icon, sectors, img in cities %}
+      <div class="col-md-6 col-lg-3">
+        <a href="/jobs?region=nigeria&q={{ city }}" class="d-block" style="border-radius:16px;overflow:hidden;position:relative;aspect-ratio:4/3;">
+          <img src="{{ img }}" alt="{{ city }}" style="width:100%;height:100%;object-fit:cover;transition:.3s;"/>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,5,51,.9) 0%,rgba(26,5,51,.2) 60%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:1.25rem;">
+            <div style="color:var(--purple-300);font-size:.75rem;margin-bottom:.2rem;"><i class="{{ icon }} me-1"></i>{{ sectors }}</div>
+            <div style="font-family:'Syne',sans-serif;font-weight:700;color:#fff;font-size:1.1rem;">{{ city }}</div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA BAND ────────────────────────────────────────── -->
+<div style="background:linear-gradient(135deg,var(--purple-700),var(--purple-500));padding:4rem 0;">
+  <div class="container text-center">
+    <h2 style="font-family:'Syne',sans-serif;font-weight:800;color:#fff;font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:1rem;">
+      Ready to Find Your Next Role?
+    </h2>
+    <p style="color:rgba(255,255,255,.7);margin-bottom:2rem;font-size:1.05rem;">
+      Thousands of companies are hiring right now. Your next opportunity is one click away.
+    </p>
+    <a href="/jobs" class="btn btn-light btn-lg rounded-pill px-5 fw-bold" style="color:var(--purple-700);">
+      <i class="fa-solid fa-briefcase me-2"></i>Browse All Jobs
+    </a>
+  </div>
+</div>
+{% endblock %}

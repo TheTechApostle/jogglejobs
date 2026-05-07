@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}Joggle Jobs{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/css/style.css"/>
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<!-- ── NAVBAR ─────────────────────────────────────────────────────────── -->
+<nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <span class="brand-icon"><i class="fa-solid fa-briefcase"></i></span>
+      <span class="brand-text">Joggle<span class="brand-accent">Jobs</span></span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+        <li class="nav-item"><a class="nav-link {% if request.endpoint=='index' %}active{% endif %}" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.endpoint=='jobs_page' %}active{% endif %}" href="/jobs">Browse Jobs</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.endpoint=='about' %}active{% endif %}" href="/about">About</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.endpoint=='contact' %}active{% endif %}" href="/contact">Contact</a></li>
+        <li class="nav-item ms-lg-3">
+          <a class="btn btn-outline-light btn-sm px-3" href="/admin">
+            <i class="fa-solid fa-lock me-1"></i>Admin
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+{% block content %}{% endblock %}
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <div class="footer-brand mb-3">
+          <i class="fa-solid fa-briefcase me-2"></i>Joggle<span class="brand-accent">Jobs</span>
+        </div>
+        <p class="footer-desc">Nigeria's smartest job board — connecting talent to opportunities locally and globally. Built for Africans, open to the world.</p>
+        <div class="social-links mt-3">
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 class="footer-heading">Browse</h6>
+        <ul class="footer-links">
+          <li><a href="/jobs?region=nigeria">Nigeria Jobs</a></li>
+          <li><a href="/jobs?region=international">International</a></li>
+          <li><a href="/jobs?type=Remote">Remote Jobs</a></li>
+          <li><a href="/jobs?category=Technology">Tech Jobs</a></li>
+          <li><a href="/jobs?category=Finance">Finance Jobs</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 class="footer-heading">Company</h6>
+        <ul class="footer-links">
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/admin">Admin Panel</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6 class="footer-heading">Contact Us</h6>
+        <ul class="footer-contact">
+          <li><i class="fa-solid fa-phone"></i> 08139528809</li>
+          <li><i class="fa-solid fa-location-dot"></i> Ogba, Lagos, Nigeria</li>
+          <li><i class="fa-solid fa-envelope"></i> hello@jogglejobs.ng</li>
+          <li><i class="fa-regular fa-clock"></i> Mon – Fri, 8am – 6pm WAT</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="footer-divider"/>
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <p class="mb-0 footer-copy">&copy; 2024 Joggle Jobs. All rights reserved.</p>
+      <p class="mb-0 footer-copy">Made with <i class="fa-solid fa-heart text-accent"></i> in Lagos, Nigeria</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/main.js"></script>
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

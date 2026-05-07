@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard — Joggle Jobs</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body style="padding-top:0;background:#f8f5ff;">
+
+<!-- ── SIDEBAR ── -->
+<aside class="admin-sidebar d-none d-lg-flex flex-column">
+  <div class="admin-logo">
+    <i class="fa-solid fa-briefcase me-2" style="color:var(--purple-300);"></i>
+    Joggle<span style="color:var(--purple-300);">Jobs</span>
+    <div style="font-size:.65rem;font-weight:400;color:rgba(255,255,255,.35);margin-top:.2rem;">Admin Panel</div>
+  </div>
+
+  <a href="/admin" class="admin-nav-link active"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+  <a href="/admin/add" class="admin-nav-link"><i class="fa-solid fa-plus-circle"></i> Add Job</a>
+  <a href="/jobs" class="admin-nav-link" target="_blank"><i class="fa-solid fa-eye"></i> View Site</a>
+  <a href="/api/jobs" class="admin-nav-link" target="_blank"><i class="fa-solid fa-code"></i> API / JSON</a>
+
+  <div style="margin-top:auto;padding-top:1rem;border-top:1px solid rgba(255,255,255,.06);">
+    <a href="/admin/logout" class="admin-nav-link" style="color:rgba(239,68,68,.7);">
+      <i class="fa-solid fa-right-from-bracket"></i> Logout
+    </a>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="admin-content">
+  <!-- Top bar -->
+  <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+    <div>
+      <h4 style="font-family:'Syne',sans-serif;font-weight:800;margin-bottom:.15rem;">Dashboard</h4>
+      <p class="text-muted mb-0" style="font-size:.85rem;">Manage all job listings and platform settings</p>
+    </div>
+    <div class="d-flex gap-2 flex-wrap">
+      <button id="scrapeBtn" class="btn-purple btn">
+        <i class="fa-solid fa-rotate me-2"></i>Scrape New Jobs
+      </button>
+      <a href="/admin/add" class="btn btn-outline-purple btn">
+        <i class="fa-solid fa-plus me-2"></i>Add Job Manually
+      </a>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="row g-3 mb-4">
+    {% set stat_items = [
+      ('Total Listings', stats.total, 'fa-solid fa-briefcase', 'purple'),
+      ('Nigeria Jobs',   stats.nigeria, 'fa-solid fa-flag', 'green'),
+      ('International',  stats.international, 'fa-solid fa-globe', 'blue'),
+      ('Featured',       stats.featured, 'fa-solid fa-star', 'gold'),
+    ] %}
+    {% for label, val, icon, color in stat_items %}
+    <div class="col-6 col-xl-3">
+      <div class="admin-stat-card">
+        <div class="admin-stat-icon {{ color }}"><i class="{{ icon }}"></i></div>
+        <div>
+          <div class="admin-stat-num">{{ val }}</div>
+          <div class="admin-stat-label">{{ label }}</div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Jobs Table -->
+  <div style="background:#fff;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;">
+    <div class="d-flex align-items-center justify-content-between p-3 border-bottom flex-wrap gap-2">
+      <h6 style="font-family:'Syne',sans-serif;font-weight:700;margin:0;">Recent Job Listings</h6>
+      <a href="/jobs" class="btn btn-sm btn-outline-purple rounded-pill" target="_blank">
+        <i class="fa-solid fa-external-link-alt me-1"></i>View Live
+      </a>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover mb-0 admin-table">
+        <thead style="background:var(--purple-100);">
+          <tr>
+            <th class="px-3 py-2">Job Title</th>
+            <th>Company</th>
+            <th>Region</th>
+            <th>Type</th>
+            <th>Posted</th>
+            <th>Featured</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for job in jobs %}
+          <tr>
+            <td class="px-3 py-2">
+              <div style="font-weight:600;font-size:.88rem;">{{ job.title }}</div>
+              <div style="font-size:.75rem;color:var(--text-light);">{{ job.category }}</div>
+            </td>
+            <td style="font-size:.88rem;">{{ job.company }}</td>
+            <td>
+              <span class="badge rounded-pill {% if job.region=='nigeria' %}bg-success{% else %}bg-info{% endif %}" style="font-size:.68rem;">
+                {{ 'Nigeria' if job.region=='nigeria' else 'International' }}
+              </span>
+            </td>
+            <td style="font-size:.82rem;">{{ job.type }}</td>
+            <td style="font-size:.78rem;color:var(--text-light);" data-posted="{{ job.posted }}">—</td>
+            <td>
+              <form action="/admin/toggle-featured/{{ job.id }}" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-sm p-1 border-0 bg-transparent" title="Toggle featured">
+                  <i class="fa-{% if job.featured %}solid{% else %}regular{% endif %} fa-star" style="color:{% if job.featured %}var(--gold){% else %}var(--text-light){% endif %};font-size:1rem;"></i>
+                </button>
+              </form>
+            </td>
+            <td>
+              <a href="/job/{{ job.id }}" target="_blank" class="btn btn-sm btn-outline-secondary me-1 rounded-pill" style="font-size:.72rem;" title="View">
+                <i class="fa-solid fa-eye"></i>
+              </a>
+              <form action="/admin/delete/{{ job.id }}" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill btn-delete-job" style="font-size:.72rem;" title="Delete">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/main.js"></script>
+</body>
+</html>

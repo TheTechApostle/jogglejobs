@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Login — Joggle Jobs</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body style="padding-top:0;background:linear-gradient(135deg,#1a0533,#2d0a5e,#0d0628);min-height:100vh;display:flex;align-items:center;justify-content:center;">
+  <div style="width:100%;max-width:420px;padding:1.5rem;">
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:2.5rem;backdrop-filter:blur(12px);">
+      <div class="text-center mb-4">
+        <div style="width:56px;height:56px;background:var(--purple-600);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.4rem;color:#fff;">
+          <i class="fa-solid fa-lock"></i>
+        </div>
+        <h4 style="font-family:'Syne',sans-serif;font-weight:800;color:#fff;margin-bottom:.25rem;">Admin Panel</h4>
+        <p style="color:rgba(255,255,255,.45);font-size:.88rem;">Joggle Jobs — Authorised Access Only</p>
+      </div>
+
+      {% if error %}
+      <div style="background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#fca5a5;border-radius:10px;padding:.85rem 1rem;font-size:.88rem;margin-bottom:1.25rem;text-align:center;">
+        <i class="fa-solid fa-circle-xmark me-2"></i>{{ error }}
+      </div>
+      {% endif %}
+
+      <form method="POST">
+        <div class="mb-3">
+          <label style="color:rgba(255,255,255,.55);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem;display:block;">Admin Password</label>
+          <div class="input-group">
+            <span class="input-group-text" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.4);">
+              <i class="fa-solid fa-key"></i>
+            </span>
+            <input type="password" name="password" class="form-control" placeholder="Enter password…"
+                   style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);color:#fff;" required/>
+          </div>
+        </div>
+        <button type="submit" class="btn-purple btn w-100 py-2 mt-1">
+          <i class="fa-solid fa-right-to-bracket me-2"></i>Sign In
+        </button>
+      </form>
+
+      <div class="text-center mt-3">
+        <a href="/" style="color:rgba(255,255,255,.35);font-size:.82rem;text-decoration:none;">
+          <i class="fa-solid fa-arrow-left me-1"></i>Back to site
+        </a>
+      </div>
+      <p style="color:rgba(255,255,255,.2);font-size:.72rem;text-align:center;margin-top:1.5rem;">
+        Default password: <code style="color:var(--purple-300);">admin1234</code>
+      </p>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
